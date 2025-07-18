@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35728.132
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PitangBoosterVendas.API", "PitangBoosterVendas.API.csproj", "{C089DEB5-3B20-4D69-B386-6A6FE378C124}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PitangBoosterVendas.Repository", "..\PitangBoosterVendas.Repository\PitangBoosterVendas.Repository.csproj", "{926CF85F-EEB7-4C49-B04D-01BAD1541086}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PitangBoosterVendas.Repository.Imp", "..\PitangBoosterVendas.Repository.Imp\PitangBoosterVendas.Repository.Imp.csproj", "{287985BD-8CAD-4D9F-8F51-53A9EA8806F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PitangBoosterVendas.Business", "..\PitangBoosterVendas.Business\PitangBoosterVendas.Business.csproj", "{20DA9EB9-258B-4AD8-B654-D89DB4534F94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PitangBoosterVendas.Business.Imp", "..\PitangBoosterVendas.Business.Imp\PitangBoosterVendas.Business.Imp.csproj", "{59BD433D-FA7D-417D-9B62-68694871BB28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PitangBoosterVendas.Entity", "..\PitangBoosterVendas.Entity\PitangBoosterVendas.Entity.csproj", "{3FD44CE4-D903-4488-B6E7-A1359046F4E7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C089DEB5-3B20-4D69-B386-6A6FE378C124}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C089DEB5-3B20-4D69-B386-6A6FE378C124}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C089DEB5-3B20-4D69-B386-6A6FE378C124}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C089DEB5-3B20-4D69-B386-6A6FE378C124}.Release|Any CPU.Build.0 = Release|Any CPU
+		{926CF85F-EEB7-4C49-B04D-01BAD1541086}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{926CF85F-EEB7-4C49-B04D-01BAD1541086}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{926CF85F-EEB7-4C49-B04D-01BAD1541086}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{926CF85F-EEB7-4C49-B04D-01BAD1541086}.Release|Any CPU.Build.0 = Release|Any CPU
+		{287985BD-8CAD-4D9F-8F51-53A9EA8806F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{287985BD-8CAD-4D9F-8F51-53A9EA8806F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{287985BD-8CAD-4D9F-8F51-53A9EA8806F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{287985BD-8CAD-4D9F-8F51-53A9EA8806F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20DA9EB9-258B-4AD8-B654-D89DB4534F94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20DA9EB9-258B-4AD8-B654-D89DB4534F94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20DA9EB9-258B-4AD8-B654-D89DB4534F94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20DA9EB9-258B-4AD8-B654-D89DB4534F94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59BD433D-FA7D-417D-9B62-68694871BB28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59BD433D-FA7D-417D-9B62-68694871BB28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59BD433D-FA7D-417D-9B62-68694871BB28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59BD433D-FA7D-417D-9B62-68694871BB28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FD44CE4-D903-4488-B6E7-A1359046F4E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FD44CE4-D903-4488-B6E7-A1359046F4E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FD44CE4-D903-4488-B6E7-A1359046F4E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FD44CE4-D903-4488-B6E7-A1359046F4E7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

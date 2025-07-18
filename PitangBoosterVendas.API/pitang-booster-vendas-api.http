@@ -1,0 +1,6 @@
+@pitang_booster_vendas_api_HostAddress = http://localhost:5115
+
+GET {{pitang_booster_vendas_api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
