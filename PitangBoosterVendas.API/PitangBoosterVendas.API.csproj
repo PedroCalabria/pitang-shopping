@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>PitangBoosterVendas.API</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="3.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.7" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PitangBoosterVendas.Business.Imp\PitangBoosterVendas.Business.Imp.csproj" />
+    <ProjectReference Include="..\PitangBoosterVendas.Business\PitangBoosterVendas.Business.Imp.csproj" />
+    <ProjectReference Include="..\PitangBoosterVendas.Business\PitangBoosterVendas.Business.csproj" />
+    <ProjectReference Include="..\PitangBoosterVendas.Entity\PitangBoosterVendas.Entity.csproj" />
+    <ProjectReference Include="..\PitangBoosterVendas.Repository.Imp\PitangBoosterVendas.Repository.Imp.csproj" />
+    <ProjectReference Include="..\PitangBoosterVendas.Repository.Imp\PitangBoosterVendas.Repository.csproj" />
+    <ProjectReference Include="..\PitangBoosterVendas.Repository.Imp\PitangBoosterVendas.Entity.csproj" />
+    <ProjectReference Include="..\PitangBoosterVendas.Repository\PitangBoosterVendas.Repository.csproj" />
+  </ItemGroup>
+
+</Project>
