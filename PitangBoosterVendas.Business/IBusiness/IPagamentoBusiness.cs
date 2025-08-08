@@ -1,6 +1,6 @@
 ﻿namespace PitangBoosterVendas.Business.IBusiness
 {
-    public interface IPedidoBusiness
+    public interface IPagamentoBusiness
     {
     }
 }

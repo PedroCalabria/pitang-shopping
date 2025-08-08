@@ -16,12 +16,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PitangBoosterVendas.Business.Imp\PitangBoosterVendas.Business.Imp.csproj" />
-    <ProjectReference Include="..\PitangBoosterVendas.Business\PitangBoosterVendas.Business.Imp.csproj" />
     <ProjectReference Include="..\PitangBoosterVendas.Business\PitangBoosterVendas.Business.csproj" />
     <ProjectReference Include="..\PitangBoosterVendas.Entity\PitangBoosterVendas.Entity.csproj" />
     <ProjectReference Include="..\PitangBoosterVendas.Repository.Imp\PitangBoosterVendas.Repository.Imp.csproj" />
-    <ProjectReference Include="..\PitangBoosterVendas.Repository.Imp\PitangBoosterVendas.Repository.csproj" />
-    <ProjectReference Include="..\PitangBoosterVendas.Repository.Imp\PitangBoosterVendas.Entity.csproj" />
     <ProjectReference Include="..\PitangBoosterVendas.Repository\PitangBoosterVendas.Repository.csproj" />
   </ItemGroup>
 
