@@ -34,10 +34,3 @@ namespace PitangBoosterVendas.Repository.Imp.Mapping
         }
     }
 }
-
-//CREATE TABLE tb_produto (
-//    id INT IDENTITY PRIMARY KEY,
-//    nome NVARCHAR(100) NOT NULL,
-//    preco DECIMAL(18, 2) NOT NULL,
-//    quantidadeEstoque INT NOT NULL
-//);

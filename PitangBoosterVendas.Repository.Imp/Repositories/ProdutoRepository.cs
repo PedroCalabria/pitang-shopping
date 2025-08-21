@@ -12,6 +12,7 @@ namespace PitangBoosterVendas.Repository.Imp.Repositories
         {
             var query = Entity.Select(e => new ProdutoDTO
             {
+                Id = e.Id,
                 Nome = e.Nome,
                 Preco = e.Preco,
                 QuantidadeEstoque = e.QuantidadeEstoque

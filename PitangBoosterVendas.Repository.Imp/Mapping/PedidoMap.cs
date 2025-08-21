@@ -33,8 +33,6 @@ namespace PitangBoosterVendas.Repository.Imp.Mapping
 
             builder.Property(e => e.Situacao)
                 .HasColumnName("situacao")
-                .HasColumnType("NVARCHAR(20)")
-                .HasConversion<string>()
                 .HasMaxLength(20);
         }
     }
