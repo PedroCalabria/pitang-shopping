@@ -1,4 +1,9 @@
-﻿namespace PitangBoosterVendas.Api.Configuration
+﻿using PitangBoosterVendas.Business.IBusiness;
+using PitangBoosterVendas.Business.Imp.Business;
+using PitangBoosterVendas.Repository.Imp.Repositories;
+using PitangBoosterVendas.Repository.IRepository;
+
+namespace PitangBoosterVendas.Api.Configuration
 {
     public static class DependencyInjectionConfiguration
     {
@@ -21,17 +26,16 @@
 
         private static void InjectRepositories(IServiceCollection services)
         {
-            //services.AddScoped<IAppointmentRepository, AppointmentRepository>();
-            //services.AddScoped<IPatientRepository, PatientRepository>();
-            //services.AddScoped<IAppointmentPatientRepository, AppointmentPatientRepository>();
+            services.AddScoped<IPedidoRepository, PedidoRepository>();            
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();            
+            services.AddScoped<IPagamentoRepository, PagamentoRepository>();            
         }
 
         private static void InjectBusinesses(IServiceCollection services)
         {
-            //services.AddScoped<IAppointmentBusiness, AppointmentBusiness>();
-            //services.AddScoped<IPatientBusiness, PatientBusiness>();
-            //services.AddScoped<IAppointmentPatientBusiness, AppointmentPatientBusiness>();
-            //services.AddScoped<IAuthenticationBusiness, AuthenticationBusiness>();
+            services.AddScoped<IPedidoBusiness, PedidoBusiness>();
+            services.AddScoped<IProdutoBusiness, ProdutoBusiness>();
+            services.AddScoped<IPagamentoBusiness, PagamentoBusiness>();
         }
     }
 }

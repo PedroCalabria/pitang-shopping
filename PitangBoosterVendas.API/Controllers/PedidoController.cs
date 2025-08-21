@@ -2,6 +2,8 @@
 using PitangBoosterVendas.Business.IBusiness;
 using PitangBoosterVendas.Business.Imp.Business;
 using PitangBoosterVendas.Entity.DTO;
+using PitangBoosterVendas.Entity.Entities;
+using PitangBoosterVendas.Entity.Enum;
 
 namespace PitangBoosterVendas.API.Controllers
 {
@@ -19,7 +21,7 @@ namespace PitangBoosterVendas.API.Controllers
         }
 
         [HttpGet("obterPedido")]
-        public async Task<PedidoDTO> ObterPedido(string id)
+        public async Task<PedidoDTO> ObterPedido(int id)
         {
             var produto = await _pedidoBusiness.ObterPedido(id);
 
@@ -27,15 +29,15 @@ namespace PitangBoosterVendas.API.Controllers
         }
 
         [HttpPost("cadastrarPedido")]
-        public async Task CadastrarPedido(PedidoDTO pedido)
+        public async Task<PedidoDTO> CadastrarPedido()
         {
-            await _pedidoBusiness.CadastrarPedido(pedido);
+            return await _pedidoBusiness.CadastrarPedido();
         }
 
         [HttpPut("atualizarPedido")]
-        public async Task AtualizarPedido(PedidoDTO pedido, int id)
+        public async Task AtualizarPedido(SituacaoPedidoEnum situacao, int id)
         {
-            await _pedidoBusiness.AtualizarPedido(pedido, id);
+            await _pedidoBusiness.AtualizarPedido(situacao, id);
         }
 
         [HttpDelete("cancelarPedido")]
@@ -44,10 +46,22 @@ namespace PitangBoosterVendas.API.Controllers
             await _pedidoBusiness.CancelarPedido(id);
         }
 
-        [HttpGet("consultarPedidosCancelados")]
+        [HttpGet("consultarPedidosPorSituacao")]
         public async Task<List<PedidoDTO>> ConsultarPedidosPorSituacao(int situacao)
         {
             return await _pedidoBusiness.ConsultarPedidosPorSituacao(situacao);
+        }
+
+        [HttpGet("obterValorTotal")]
+        public async Task<decimal> ObterValorTotal(int id)
+        {
+            return await _pedidoBusiness.ObterValorTotal(id);
+        }
+
+        [HttpGet("obterPedidosPorPeriodo")]
+        public async Task<List<PedidoDTO>> ObterPedidosPorPeriodo(DateTime startDate, DateTime endDate)
+        {
+            return await _pedidoBusiness.ObterPedidosPorPeriodo(startDate, endDate);
         }
     }
 }

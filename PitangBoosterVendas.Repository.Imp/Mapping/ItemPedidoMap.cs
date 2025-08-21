@@ -25,7 +25,7 @@ namespace PitangBoosterVendas.Repository.Imp.Mapping
             builder.Property(e => e.Quantidade)
                 .IsRequired();
 
-            builder.Property(e => e.PrecoUnitario)
+            builder.Property(e => e.PrecoUnitario) // Remover
                 .HasColumnType("decimal(18, 2)")
                 .IsRequired();
 
