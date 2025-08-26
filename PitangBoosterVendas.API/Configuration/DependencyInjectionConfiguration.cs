@@ -1,6 +1,9 @@
-﻿using PitangBoosterVendas.Business.IBusiness;
+﻿using PitangBoosterVendas.API.Middleware;
+using PitangBoosterVendas.Business.IBusiness;
 using PitangBoosterVendas.Business.Imp.Business;
+using PitangBoosterVendas.Repository;
 using PitangBoosterVendas.Repository.Imp.Repositories;
+using PitangBoosterVendas.Repository.Imp.TransactionManager;
 using PitangBoosterVendas.Repository.IRepository;
 
 namespace PitangBoosterVendas.Api.Configuration
@@ -13,15 +16,12 @@ namespace PitangBoosterVendas.Api.Configuration
             InjectBusinesses(services);
             InjectMiddlewares(services);
 
-            //services.AddScoped<ITransactionManager, TransactionManager>();
-            //services.AddScoped<IPatientContext, PatientContext>();
-            //services.AddOptions<AuthenticationConfig>().Bind(configuration.GetSection("Authorization"));
+            services.AddScoped<ITransactionManager, TransactionManager>();
         }
 
         private static void InjectMiddlewares(IServiceCollection services)
         {
-            //services.AddTransient<ApiMiddleware>();
-            //services.AddTransient<PatientContextMiddleware>();
+            services.AddTransient<ApiMiddleware>();
         }
 
         private static void InjectRepositories(IServiceCollection services)

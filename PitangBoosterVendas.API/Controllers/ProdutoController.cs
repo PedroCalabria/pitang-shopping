@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PitangBoosterVendas.Business.IBusiness;
 using PitangBoosterVendas.Entity.DTO;
+using PitangBoosterVendas.Utils.Attributes;
 
 namespace PitangBoosterVendas.API.Controllers
 {
@@ -26,18 +27,21 @@ namespace PitangBoosterVendas.API.Controllers
         }
 
         [HttpPost("cadastrarProduto")]
+        [TransactionRequired]
         public async Task CadastrarProduto(ProdutoDTO produto)
         {
             await _produtoBusiness.CadastrarProduto(produto);
         }
 
         [HttpPut("atualizarProduto")]
+        [TransactionRequired]
         public async Task AtualizarProduto(ProdutoDTO produto, int id)
         {
             await _produtoBusiness.AtualizarProduto(produto, id);
         }
 
         [HttpDelete("deletarProduto")]
+        [TransactionRequired]
         public async Task DeletarProduto(int id)
         {
             await _produtoBusiness.DeletarProduto(id);

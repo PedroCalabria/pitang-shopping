@@ -4,6 +4,7 @@ using PitangBoosterVendas.Business.Imp.Business;
 using PitangBoosterVendas.Entity.DTO;
 using PitangBoosterVendas.Entity.Entities;
 using PitangBoosterVendas.Entity.Enum;
+using PitangBoosterVendas.Utils.Attributes;
 
 namespace PitangBoosterVendas.API.Controllers
 {
@@ -29,18 +30,21 @@ namespace PitangBoosterVendas.API.Controllers
         }
 
         [HttpPost("cadastrarPedido")]
+        [TransactionRequired]
         public async Task<PedidoDTO> CadastrarPedido()
         {
             return await _pedidoBusiness.CadastrarPedido();
         }
 
         [HttpPut("atualizarPedido")]
+        [TransactionRequired]
         public async Task AtualizarPedido(SituacaoPedidoEnum situacao, int id)
         {
             await _pedidoBusiness.AtualizarPedido(situacao, id);
         }
 
         [HttpDelete("cancelarPedido")]
+        [TransactionRequired]
         public async Task CancelarPedido(int id)
         {
             await _pedidoBusiness.CancelarPedido(id);
