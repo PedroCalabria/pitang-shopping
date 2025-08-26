@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PitangBoosterVendas.Busines
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PitangBoosterVendas.Entity", "..\PitangBoosterVendas.Entity\PitangBoosterVendas.Entity.csproj", "{3FD44CE4-D903-4488-B6E7-A1359046F4E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PitangBoosterVendas.Utils", "..\PitangBoosterVendas.Utility\PitangBoosterVendas.Utils.csproj", "{0CA09995-049D-48F4-925D-5DAD4BD8BD1A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,8 +47,15 @@ Global
 		{3FD44CE4-D903-4488-B6E7-A1359046F4E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FD44CE4-D903-4488-B6E7-A1359046F4E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FD44CE4-D903-4488-B6E7-A1359046F4E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CA09995-049D-48F4-925D-5DAD4BD8BD1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CA09995-049D-48F4-925D-5DAD4BD8BD1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CA09995-049D-48F4-925D-5DAD4BD8BD1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CA09995-049D-48F4-925D-5DAD4BD8BD1A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AD4039CC-13DF-40DA-A623-4FB9698D1B85}
 	EndGlobalSection
 EndGlobal
