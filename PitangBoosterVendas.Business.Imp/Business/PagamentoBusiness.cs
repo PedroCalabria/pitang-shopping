@@ -22,7 +22,6 @@ namespace PitangBoosterVendas.Business.Imp.Business
                 return new PagamentoDTO
                 {
                     Id = p.Id,
-                    PedidoId = p.PedidoId,
                     Valor = p.Valor,
                     DataPagamento = p.DataPagamento,
                     TipoPagamento = p.TipoPagamento,
@@ -35,7 +34,7 @@ namespace PitangBoosterVendas.Business.Imp.Business
             })];
         }
 
-        public async Task<PagamentoDTO> ObterPagamentoPorPedido(int id)
+        public async Task<PagamentoDTO> ObterPagamentoPorId(int id)
         {
             var pagamento = await _pagamentoRepository.FilterById(id);
 
@@ -52,7 +51,6 @@ namespace PitangBoosterVendas.Business.Imp.Business
             return new PagamentoDTO
             {
                 Id = pagamento.Id,
-                PedidoId = pagamento.PedidoId,
                 Valor = pagamento.Valor,
                 DataPagamento = pagamento.DataPagamento,
                 TipoPagamento = pagamento.TipoPagamento,
@@ -64,47 +62,65 @@ namespace PitangBoosterVendas.Business.Imp.Business
             };
         }
 
-        public async Task<PagamentoDTO> CadastrarPagamento(PagamentoDTO pagamento)
+        public async Task<List<PagamentoDTO>> ObterPagamentoPorPedido(int id)
         {
-            Pagamento novoPagamento;
-            switch (pagamento.TipoPagamento)
+            var pagamentos = await _pagamentoRepository.ObterPagamentoPorPedido(id);
+
+            if (pagamentos == null || pagamentos.Count == 0)
             {
-                case "Cartao":
-                    novoPagamento = new CartaoPagamento
-                    {
-                        PedidoId = pagamento.PedidoId,
-                        Valor = pagamento.Valor,
-                        DataPagamento = pagamento.DataPagamento,
-                        TipoPagamento = pagamento.TipoPagamento,
-                        NumeroCartao = pagamento.NumeroCartao,
-                        Parcelas = pagamento.Parcelas ?? 1
-                    };
-                    break;
-                case "Pix":
-                    novoPagamento = new PixPagamento
-                    {
-                        PedidoId = pagamento.PedidoId,
-                        Valor = pagamento.Valor,
-                        DataPagamento = pagamento.DataPagamento,
-                        TipoPagamento = pagamento.TipoPagamento,
-                        ChavePix = pagamento.ChavePix
-                    };
-                    break;
-                case "Boleto":
-                    novoPagamento = new BoletoPagamento
-                    {
-                        PedidoId = pagamento.PedidoId,
-                        Valor = pagamento.Valor,
-                        DataPagamento = pagamento.DataPagamento,
-                        TipoPagamento = pagamento.TipoPagamento,
-                        CodigoBarras = pagamento.CodigoBarras,
-                        DataVencimento = pagamento.DataVencimento ?? DateTime.Now
-                    };
-                    break;
-                default:
-                    throw new ArgumentException("Tipo de pagamento inválido");
+                _log.InfoFormat("Pagamento não encontrado");
+                throw new ArgumentException("Pagamento não encontrado");
             }
 
+            return [.. pagamentos.Select(p =>
+            {
+                var cartaoPagamento = p as CartaoPagamento;
+                var pixPagamento = p as PixPagamento;
+                var boletoPagamento = p as BoletoPagamento;
+                return new PagamentoDTO
+                {
+                    Id = p.Id,
+                    Valor = p.Valor,
+                    DataPagamento = p.DataPagamento,
+                    TipoPagamento = p.TipoPagamento,
+                    NumeroCartao = cartaoPagamento?.NumeroCartao,
+                    Parcelas = cartaoPagamento ?.Parcelas,
+                    ChavePix = pixPagamento?.ChavePix,
+                    CodigoBarras = boletoPagamento?.CodigoBarras,
+                    DataVencimento = boletoPagamento?.DataVencimento
+                };
+            })];
+        }
+
+        public async Task<PagamentoDTO> CadastrarPagamento(PagamentoDTO pagamento)
+        {
+            Pagamento novoPagamento = pagamento.TipoPagamento switch
+            {
+                "Cartao" => new CartaoPagamento
+                {
+                    Valor = pagamento.Valor,
+                    DataPagamento = pagamento.DataPagamento,
+                    TipoPagamento = pagamento.TipoPagamento,
+                    NumeroCartao = pagamento.NumeroCartao,
+                    Parcelas = pagamento.Parcelas ?? 1
+                },
+                "Pix" => new PixPagamento
+                {
+                    Valor = pagamento.Valor,
+                    DataPagamento = pagamento.DataPagamento,
+                    TipoPagamento = pagamento.TipoPagamento,
+                    ChavePix = pagamento.ChavePix
+                },
+                "Boleto" => new BoletoPagamento
+                {
+                    Valor = pagamento.Valor,
+                    DataPagamento = pagamento.DataPagamento,
+                    TipoPagamento = pagamento.TipoPagamento,
+                    CodigoBarras = pagamento.CodigoBarras,
+                    DataVencimento = pagamento.DataVencimento ?? DateTime.Now
+                },
+                _ => throw new ArgumentException("Tipo de pagamento inválido"),
+            };
             var pagamentoSalvo = await _pagamentoRepository.InsertAsync(novoPagamento);
 
             var cartaoPagamento = pagamentoSalvo as CartaoPagamento;
@@ -114,7 +130,6 @@ namespace PitangBoosterVendas.Business.Imp.Business
             return new PagamentoDTO
             {
                 Id = pagamentoSalvo.Id,
-                PedidoId = pagamentoSalvo.PedidoId,
                 Valor = pagamentoSalvo.Valor,
                 DataPagamento = pagamentoSalvo.DataPagamento,
                 TipoPagamento = pagamentoSalvo.TipoPagamento,
@@ -136,7 +151,6 @@ namespace PitangBoosterVendas.Business.Imp.Business
                 throw new ArgumentException("Pagamento não encontrado");
             }
 
-            pagamentoExistente.PedidoId = pagamento.PedidoId;
             pagamentoExistente.Valor = pagamento.Valor;
             pagamentoExistente.DataPagamento = pagamento.DataPagamento;
             pagamentoExistente.TipoPagamento = pagamento.TipoPagamento;
@@ -184,7 +198,6 @@ namespace PitangBoosterVendas.Business.Imp.Business
                 return new PagamentoDTO
                 {
                     Id = p.Id,
-                    PedidoId = p.PedidoId,
                     Valor = p.Valor,
                     DataPagamento = p.DataPagamento,
                     TipoPagamento = p.TipoPagamento,
@@ -198,15 +211,3 @@ namespace PitangBoosterVendas.Business.Imp.Business
         }
     }
 }
-
-
-//public int Id { get; set; }
-//public int PedidoId { get; set; }
-//public decimal Valor { get; set; }
-//public DateTime DataPagamento { get; set; }
-//public string TipoPagamento { get; set; }
-//public string? NumeroCartao { get; set; }
-//public int? Parcelas { get; set; }
-//public string? ChavePix { get; set; }
-//public string? CodigoBarras { get; set; }
-//public DateTime? DataVencimento { get; set; }

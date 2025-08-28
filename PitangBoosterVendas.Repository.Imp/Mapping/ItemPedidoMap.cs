@@ -17,16 +17,15 @@ namespace PitangBoosterVendas.Repository.Imp.Mapping
                 .ValueGeneratedOnAdd();
 
             builder.Property(e => e.PedidoId)
+                .HasColumnName("pedidoId")
                 .IsRequired();
 
             builder.Property(e => e.ProdutoId)
+                .HasColumnName("produtoId")
                 .IsRequired();
 
             builder.Property(e => e.Quantidade)
-                .IsRequired();
-
-            builder.Property(e => e.PrecoUnitario) // Remover
-                .HasColumnType("decimal(18, 2)")
+                .HasColumnName("quantidade")
                 .IsRequired();
 
             builder.HasOne(i => i.Pedido)
@@ -37,7 +36,7 @@ namespace PitangBoosterVendas.Repository.Imp.Mapping
             builder.HasOne(i => i.Produto)
                 .WithMany(p => p.ItensPedido)
                 .HasForeignKey(i => i.ProdutoId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

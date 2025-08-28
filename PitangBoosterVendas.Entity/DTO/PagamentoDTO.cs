@@ -10,7 +10,6 @@ namespace PitangBoosterVendas.Entity.DTO
     public class PagamentoDTO
     {
         public int Id { get; set; }
-        public int PedidoId { get; set; }
         public decimal Valor { get; set; }
         public DateTime DataPagamento { get; set; }
         public string TipoPagamento { get; set; }
