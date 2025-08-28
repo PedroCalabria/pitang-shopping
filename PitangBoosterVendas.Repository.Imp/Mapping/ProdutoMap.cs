@@ -22,14 +22,17 @@ namespace PitangBoosterVendas.Repository.Imp.Mapping
                 .ValueGeneratedOnAdd();
 
             builder.Property(e => e.Nome)
+                .HasColumnName("nome")
                 .HasMaxLength(100)
                 .IsRequired();
 
             builder.Property(e => e.Preco)
+                .HasColumnName("preco")
                 .HasColumnType("decimal(18, 2)")
                 .IsRequired();
 
             builder.Property(e => e.QuantidadeEstoque)
+                .HasColumnName("quantidadeEstoque")
                 .IsRequired();
         }
     }

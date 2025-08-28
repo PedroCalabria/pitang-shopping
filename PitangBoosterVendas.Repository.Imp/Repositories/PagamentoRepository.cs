@@ -14,5 +14,18 @@ namespace PitangBoosterVendas.Repository.Imp.Repositories
                 .Where(p => p.TipoPagamento == tipoPagamento)
                 .ToListAsync();
         }
+
+        public Task<List<Pagamento>> ObterPagamentoPorPedido(int idPedido)
+        {
+            var query = from pagamento in Entity
+
+                        join pedido in context.Pedido
+                        on pagamento.Id equals pedido.PagamentoId
+
+                        where pedido.Id == idPedido
+                        select pagamento;
+
+            return query.ToListAsync();
+        }
     }
 }

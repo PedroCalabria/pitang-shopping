@@ -33,7 +33,19 @@ namespace PitangBoosterVendas.Repository.Imp.Mapping
 
             builder.Property(e => e.Situacao)
                 .HasColumnName("situacao")
-                .HasMaxLength(20);
+                .IsRequired();
+
+            builder.Property(e => e.PagamentoId)
+                .HasColumnName("pagamentoId");
+
+            builder.HasOne(p => p.Pagamento)
+                .WithOne(pag => pag.Pedido)
+                .HasForeignKey<Pedido>(p => p.PagamentoId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(p => p.ItensPedido)
+               .WithOne(i => i.Pedido)
+               .HasForeignKey(i => i.PedidoId);
         }
     }
 }

@@ -17,8 +17,15 @@ namespace PitangBoosterVendas.API.Controllers
             return pagamentos;
         }
 
+        [HttpGet("obterPagamentoPorId")]
+        public async Task<PagamentoDTO> ObterPagamentoPorId(int id)
+        {
+            var pagamento = await _pagamentoBusiness.ObterPagamentoPorId(id);
+            return pagamento;
+        }
+
         [HttpGet("obterPagamentoPorPedido")]
-        public async Task<PagamentoDTO> ObterPagamentoPorPedido(int id)
+        public async Task<List<PagamentoDTO>> ObterPagamentoPorPedido(int id)
         {
             var pagamento = await _pagamentoBusiness.ObterPagamentoPorPedido(id);
             return pagamento;
@@ -41,6 +48,13 @@ namespace PitangBoosterVendas.API.Controllers
         public async Task CancelarPagamento(int id)
         {
             await _pagamentoBusiness.CancelarPagamento(id);
+        }
+
+        [HttpGet("consultarPagamentosPorTipo")]
+        public async Task<List<PagamentoDTO>> ConsultarPagamentosPorTipo(string tipoPagamento)
+        {
+            var pagamentos = await _pagamentoBusiness.ConsultarPagamentosPorTipo(tipoPagamento);
+            return pagamentos;
         }
     }
 }

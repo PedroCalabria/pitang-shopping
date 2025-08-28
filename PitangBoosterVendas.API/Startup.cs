@@ -1,6 +1,7 @@
 ﻿using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using PitangBoosterVendas.Api.Configuration;
+using PitangBoosterVendas.API.Middleware;
 
 namespace PitangBoosterVendas.Api
 {
@@ -47,6 +48,8 @@ namespace PitangBoosterVendas.Api
 
                 c.AddSecurityRequirement(new() { { new() { Reference = new() { Type = ReferenceType.SecurityScheme, Id = "Bearer" } }, Array.Empty<string>() } });
             });
+
+            services.AddTransient<ApiMiddleware>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -68,7 +71,7 @@ namespace PitangBoosterVendas.Api
             app.UseAuthentication();
             app.UseAuthorization();
 
-            //app.UseMiddleware<ApiMiddleware>();
+            app.UseMiddleware<ApiMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
