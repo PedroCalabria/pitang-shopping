@@ -1,4 +1,12 @@
-﻿namespace PitangBoosterVendas.Api.Configuration
+﻿using PitangBoosterVendas.API.Middleware;
+using PitangBoosterVendas.Business.IBusiness;
+using PitangBoosterVendas.Business.Imp.Business;
+using PitangBoosterVendas.Repository;
+using PitangBoosterVendas.Repository.Imp.Repositories;
+using PitangBoosterVendas.Repository.Imp.TransactionManager;
+using PitangBoosterVendas.Repository.IRepository;
+
+namespace PitangBoosterVendas.Api.Configuration
 {
     public static class DependencyInjectionConfiguration
     {
@@ -8,30 +16,26 @@
             InjectBusinesses(services);
             InjectMiddlewares(services);
 
-            //services.AddScoped<ITransactionManager, TransactionManager>();
-            //services.AddScoped<IPatientContext, PatientContext>();
-            //services.AddOptions<AuthenticationConfig>().Bind(configuration.GetSection("Authorization"));
+            services.AddScoped<ITransactionManager, TransactionManager>();
         }
 
         private static void InjectMiddlewares(IServiceCollection services)
         {
-            //services.AddTransient<ApiMiddleware>();
-            //services.AddTransient<PatientContextMiddleware>();
+            services.AddTransient<ApiMiddleware>();
         }
 
         private static void InjectRepositories(IServiceCollection services)
         {
-            //services.AddScoped<IAppointmentRepository, AppointmentRepository>();
-            //services.AddScoped<IPatientRepository, PatientRepository>();
-            //services.AddScoped<IAppointmentPatientRepository, AppointmentPatientRepository>();
+            services.AddScoped<IPedidoRepository, PedidoRepository>();            
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();            
+            services.AddScoped<IPagamentoRepository, PagamentoRepository>();            
         }
 
         private static void InjectBusinesses(IServiceCollection services)
         {
-            //services.AddScoped<IAppointmentBusiness, AppointmentBusiness>();
-            //services.AddScoped<IPatientBusiness, PatientBusiness>();
-            //services.AddScoped<IAppointmentPatientBusiness, AppointmentPatientBusiness>();
-            //services.AddScoped<IAuthenticationBusiness, AuthenticationBusiness>();
+            services.AddScoped<IPedidoBusiness, PedidoBusiness>();
+            services.AddScoped<IProdutoBusiness, ProdutoBusiness>();
+            services.AddScoped<IPagamentoBusiness, PagamentoBusiness>();
         }
     }
 }

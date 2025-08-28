@@ -4,15 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PitangBoosterVendas.Entity.Entities
+namespace PitangBoosterVendas.Entity.DTO
 {
-    public class Produto : IEntity
+    public class ProdutoDTO
     {
         public int Id { get; set; }
         public string Nome { get; set; }
         public decimal Preco { get; set; }
         public int QuantidadeEstoque { get; set; }
-
-        public List<ItemPedido> ItensPedido { get; set; } = [];
     }
 }
