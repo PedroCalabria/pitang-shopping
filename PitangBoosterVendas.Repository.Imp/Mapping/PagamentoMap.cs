@@ -10,9 +10,9 @@ namespace PitangBoosterVendas.Repository.Imp.Mapping
         {
             builder.ToTable("tb_pagamento");
 
-            builder.HasKey(t => t.Id);
+            builder.HasKey(p => p.Id);
 
-            builder.Property(e => e.Id)
+            builder.Property(p => p.Id)
                 .HasColumnName("id")
                 .ValueGeneratedOnAdd();
 
@@ -25,21 +25,9 @@ namespace PitangBoosterVendas.Repository.Imp.Mapping
                 .HasColumnName("dataPagamento")
                 .IsRequired();
 
-            builder.Property(p => p.TipoPagamento)
-                        .HasColumnName("tipoPagamento")
-                        .HasMaxLength(50)
-                        .IsRequired();
-
-            // Configura o discriminator
-            builder.HasDiscriminator<string>("TipoPagamento")
-                   .HasValue<CartaoPagamento>("Cartao")
-                   .HasValue<PixPagamento>("Pix")
-                   .HasValue<BoletoPagamento>("Boleto");
-
             builder.HasOne(p => p.Pedido)
-               .WithOne(p => p.Pagamento)
-               .HasForeignKey<Pedido>(p => p.PagamentoId);
+                   .WithOne(p => p.Pagamento)
+                   .HasForeignKey<Pedido>(p => p.PagamentoId);
         }
     }
-
 }

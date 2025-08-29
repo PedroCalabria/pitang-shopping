@@ -33,9 +33,9 @@ namespace PitangBoosterVendas.API.Controllers
 
         [HttpPost("cadastrarPagamento")]
         [TransactionRequired]
-        public async Task<PagamentoDTO> CadastrarPagamento(PagamentoDTO pagamento)
+        public async Task<PagamentoDTO> CadastrarPagamento(PagamentoDTO pagamento, string tipoPagamento)
         {
-            return await _pagamentoBusiness.CadastrarPagamento(pagamento);
+            return await _pagamentoBusiness.CadastrarPagamento(pagamento, tipoPagamento);
         }
         [HttpPut("atualizarPagamento")]
         [TransactionRequired]
