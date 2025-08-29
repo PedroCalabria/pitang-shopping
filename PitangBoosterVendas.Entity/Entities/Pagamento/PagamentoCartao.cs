@@ -1,6 +1,6 @@
 ﻿namespace PitangBoosterVendas.Entity.Entities
 {
-    public class CartaoPagamento : Pagamento
+    public class PagamentoCartao : Pagamento
     {
         public string NumeroCartao { get; set; }
         public int Parcelas { get; set; }
