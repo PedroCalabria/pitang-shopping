@@ -3,6 +3,7 @@ using PitangBoosterVendas.Business.IBusiness;
 using PitangBoosterVendas.Entity.DTO;
 using PitangBoosterVendas.Entity.Entities;
 using PitangBoosterVendas.Repository.IRepository;
+using System.Globalization;
 
 namespace PitangBoosterVendas.Business.Imp.Business
 {
@@ -16,15 +17,14 @@ namespace PitangBoosterVendas.Business.Imp.Business
 
             return [.. pagamentos.Select(p =>
             {
-                var cartaoPagamento = p as CartaoPagamento;
-                var pixPagamento = p as PixPagamento;
-                var boletoPagamento = p as BoletoPagamento;
+                var cartaoPagamento = p as PagamentoCartao;
+                var pixPagamento = p as PagamentoPix;
+                var boletoPagamento = p as PagamentoBoleto;
                 return new PagamentoDTO
                 {
                     Id = p.Id,
                     Valor = p.Valor,
                     DataPagamento = p.DataPagamento,
-                    TipoPagamento = p.TipoPagamento,
                     NumeroCartao = cartaoPagamento != null ? cartaoPagamento.NumeroCartao : null,
                     Parcelas = cartaoPagamento != null ? cartaoPagamento.Parcelas : (int?)null,
                     ChavePix = pixPagamento != null ? pixPagamento.ChavePix : null,
@@ -44,16 +44,15 @@ namespace PitangBoosterVendas.Business.Imp.Business
                 throw new ArgumentException("Pagamento não encontrado");
             }
 
-            var cartaoPagamento = pagamento as CartaoPagamento;
-            var pixPagamento = pagamento as PixPagamento;
-            var boletoPagamento = pagamento as BoletoPagamento;
+            var cartaoPagamento = pagamento as PagamentoCartao;
+            var pixPagamento = pagamento as PagamentoPix;
+            var boletoPagamento = pagamento as PagamentoBoleto;
 
             return new PagamentoDTO
             {
                 Id = pagamento.Id,
                 Valor = pagamento.Valor,
                 DataPagamento = pagamento.DataPagamento,
-                TipoPagamento = pagamento.TipoPagamento,
                 NumeroCartao = cartaoPagamento != null ? cartaoPagamento.NumeroCartao : null,
                 Parcelas = cartaoPagamento != null ? cartaoPagamento.Parcelas : (int?)null,
                 ChavePix = pixPagamento != null ? pixPagamento.ChavePix : null,
@@ -74,15 +73,14 @@ namespace PitangBoosterVendas.Business.Imp.Business
 
             return [.. pagamentos.Select(p =>
             {
-                var cartaoPagamento = p as CartaoPagamento;
-                var pixPagamento = p as PixPagamento;
-                var boletoPagamento = p as BoletoPagamento;
+                var cartaoPagamento = p as PagamentoCartao;
+                var pixPagamento = p as PagamentoPix;
+                var boletoPagamento = p as PagamentoBoleto;
                 return new PagamentoDTO
                 {
                     Id = p.Id,
                     Valor = p.Valor,
                     DataPagamento = p.DataPagamento,
-                    TipoPagamento = p.TipoPagamento,
                     NumeroCartao = cartaoPagamento?.NumeroCartao,
                     Parcelas = cartaoPagamento ?.Parcelas,
                     ChavePix = pixPagamento?.ChavePix,
@@ -92,30 +90,27 @@ namespace PitangBoosterVendas.Business.Imp.Business
             })];
         }
 
-        public async Task<PagamentoDTO> CadastrarPagamento(PagamentoDTO pagamento)
+        public async Task<PagamentoDTO> CadastrarPagamento(PagamentoDTO pagamento, string tipoPagamento)
         {
-            Pagamento novoPagamento = pagamento.TipoPagamento switch
+            Pagamento novoPagamento = tipoPagamento switch
             {
-                "Cartao" => new CartaoPagamento
+                "Cartao" => new PagamentoCartao
                 {
                     Valor = pagamento.Valor,
                     DataPagamento = pagamento.DataPagamento,
-                    TipoPagamento = pagamento.TipoPagamento,
                     NumeroCartao = pagamento.NumeroCartao,
                     Parcelas = pagamento.Parcelas ?? 1
                 },
-                "Pix" => new PixPagamento
+                "Pix" => new PagamentoPix
                 {
                     Valor = pagamento.Valor,
                     DataPagamento = pagamento.DataPagamento,
-                    TipoPagamento = pagamento.TipoPagamento,
                     ChavePix = pagamento.ChavePix
                 },
-                "Boleto" => new BoletoPagamento
+                "Boleto" => new PagamentoBoleto
                 {
                     Valor = pagamento.Valor,
                     DataPagamento = pagamento.DataPagamento,
-                    TipoPagamento = pagamento.TipoPagamento,
                     CodigoBarras = pagamento.CodigoBarras,
                     DataVencimento = pagamento.DataVencimento ?? DateTime.Now
                 },
@@ -123,16 +118,15 @@ namespace PitangBoosterVendas.Business.Imp.Business
             };
             var pagamentoSalvo = await _pagamentoRepository.InsertAsync(novoPagamento);
 
-            var cartaoPagamento = pagamentoSalvo as CartaoPagamento;
-            var pixPagamento = pagamentoSalvo as PixPagamento;
-            var boletoPagamento = pagamentoSalvo as BoletoPagamento;
+            var cartaoPagamento = pagamentoSalvo as PagamentoCartao;
+            var pixPagamento = pagamentoSalvo as PagamentoPix;
+            var boletoPagamento = pagamentoSalvo as PagamentoBoleto;
 
             return new PagamentoDTO
             {
                 Id = pagamentoSalvo.Id,
                 Valor = pagamentoSalvo.Valor,
                 DataPagamento = pagamentoSalvo.DataPagamento,
-                TipoPagamento = pagamentoSalvo.TipoPagamento,
                 NumeroCartao = cartaoPagamento?.NumeroCartao,
                 Parcelas = cartaoPagamento?.Parcelas,
                 ChavePix = pixPagamento?.ChavePix,
@@ -153,20 +147,19 @@ namespace PitangBoosterVendas.Business.Imp.Business
 
             pagamentoExistente.Valor = pagamento.Valor;
             pagamentoExistente.DataPagamento = pagamento.DataPagamento;
-            pagamentoExistente.TipoPagamento = pagamento.TipoPagamento;
 
-            if (pagamentoExistente is CartaoPagamento cartaoPagamento)
+            if (pagamentoExistente is PagamentoCartao cartaoPagamento)
             {
-                cartaoPagamento.NumeroCartao = pagamento.NumeroCartao;
+                cartaoPagamento.NumeroCartao = pagamento.NumeroCartao!;
                 cartaoPagamento.Parcelas = pagamento.Parcelas ?? 1;
             }
-            else if (pagamentoExistente is PixPagamento pixPagamento)
+            else if (pagamentoExistente is PagamentoPix pixPagamento)
             {
-                pixPagamento.ChavePix = pagamento.ChavePix;
+                pixPagamento.ChavePix = pagamento.ChavePix!;
             }
-            else if (pagamentoExistente is BoletoPagamento boletoPagamento)
+            else if (pagamentoExistente is PagamentoBoleto boletoPagamento)
             {
-                boletoPagamento.CodigoBarras = pagamento.CodigoBarras;
+                boletoPagamento.CodigoBarras = pagamento.CodigoBarras!;
                 boletoPagamento.DataVencimento = pagamento.DataVencimento ?? DateTime.Now;
             }
 
@@ -192,15 +185,14 @@ namespace PitangBoosterVendas.Business.Imp.Business
 
             return [.. pagamentos.Select(p =>
             {
-                var cartaoPagamento = p as CartaoPagamento;
-                var pixPagamento = p as PixPagamento;
-                var boletoPagamento = p as BoletoPagamento;
+                var cartaoPagamento = p as PagamentoCartao;
+                var pixPagamento = p as PagamentoPix;
+                var boletoPagamento = p as PagamentoBoleto;
                 return new PagamentoDTO
                 {
                     Id = p.Id,
                     Valor = p.Valor,
                     DataPagamento = p.DataPagamento,
-                    TipoPagamento = p.TipoPagamento,
                     NumeroCartao = cartaoPagamento != null ? cartaoPagamento.NumeroCartao : null,
                     Parcelas = cartaoPagamento != null ? cartaoPagamento.Parcelas : (int?)null,
                     ChavePix = pixPagamento != null ? pixPagamento.ChavePix : null,

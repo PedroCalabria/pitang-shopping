@@ -10,9 +10,15 @@ namespace PitangBoosterVendas.Repository.Imp.Repositories
     {
         public async Task<List<Pagamento>> ConsultarPagamentosPorTipo(string tipoPagamento)
         {
-            return await Entity
-                .Where(p => p.TipoPagamento == tipoPagamento)
-                .ToListAsync();
+            var pagamento = tipoPagamento switch
+            {
+                "Cartao" => (await Entity.OfType<PagamentoCartao>().ToListAsync()).Cast<Pagamento>().ToList(),
+                "Pix" => (await Entity.OfType<PagamentoPix>().ToListAsync()).Cast<Pagamento>().ToList(),
+                "Boleto" => (await Entity.OfType<PagamentoBoleto>().ToListAsync()).Cast<Pagamento>().ToList(),
+                _ => []
+            };
+
+            return pagamento;
         }
 
         public Task<List<Pagamento>> ObterPagamentoPorPedido(int idPedido)
