@@ -25,9 +25,9 @@ namespace PitangBoosterVendas.Repository.Imp.Mapping
                 .HasColumnName("dataPagamento")
                 .IsRequired();
 
-            builder.HasOne(p => p.Pedido)
-                   .WithOne(p => p.Pagamento)
-                   .HasForeignKey<Pedido>(p => p.PagamentoId);
+            builder.Property(p => p.PedidoId)
+                .HasColumnName("pedido_id")
+                .IsRequired();
         }
     }
 }
