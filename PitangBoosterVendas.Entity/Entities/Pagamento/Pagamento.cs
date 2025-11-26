@@ -6,6 +6,7 @@
         public decimal Valor { get; set; }
         public DateTime DataPagamento { get; set; }
 
+        public int PedidoId { get; set; }
         public Pedido? Pedido { get; set; }
     }
 }

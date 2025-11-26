@@ -27,16 +27,6 @@ namespace PitangBoosterVendas.Repository.Imp.Mapping
             builder.Property(e => e.Quantidade)
                 .HasColumnName("quantidade")
                 .IsRequired();
-
-            builder.HasOne(i => i.Pedido)
-                .WithMany(p => p.ItensPedido)
-                .HasForeignKey(i => i.PedidoId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            builder.HasOne(i => i.Produto)
-                .WithMany(p => p.ItensPedido)
-                .HasForeignKey(i => i.ProdutoId)
-                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

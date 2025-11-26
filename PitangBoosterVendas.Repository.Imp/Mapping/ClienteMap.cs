@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace PitangBoosterVendas.Repository.Imp.Mapping
 {
-    public class ProdutoMap : IEntityTypeConfiguration<Produto>
+    public class ClienteMap : IEntityTypeConfiguration<Cliente>
     {
-        public void Configure(EntityTypeBuilder<Produto> builder)
+        public void Configure(EntityTypeBuilder<Cliente> builder)
         {
-            builder.ToTable("tb_produto");
+            builder.ToTable("tb_cliente");
 
             builder.HasKey(t => t.Id);
 
@@ -26,18 +26,20 @@ namespace PitangBoosterVendas.Repository.Imp.Mapping
                 .HasMaxLength(100)
                 .IsRequired();
 
-            builder.Property(e => e.Preco)
-                .HasColumnName("preco")
-                .HasColumnType("decimal(18, 2)")
+            builder.Property(e => e.Cpf)
+                .HasColumnName("cpf")
+                .HasMaxLength(11)
                 .IsRequired();
 
-            builder.Property(e => e.QuantidadeEstoque)
-                .HasColumnName("quantidadeEstoque")
+            builder.Property(e => e.Email)
+                .HasColumnName("email")
+                .HasMaxLength(100)
                 .IsRequired();
 
-            builder.HasMany(p => p.ItensPedido)
-               .WithOne(i => i.Produto)
-               .HasForeignKey(i => i.ProdutoId);
+            builder.Property(e => e.Telefone)
+                .HasColumnName("telefone")
+                .HasMaxLength(15)
+                .IsRequired();
         }
     }
 }

@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PitangBoosterVendas.Entity.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PitangBoosterVendas.Repository.Imp.Mapping
 {
@@ -35,17 +30,23 @@ namespace PitangBoosterVendas.Repository.Imp.Mapping
                 .HasColumnName("situacao")
                 .IsRequired();
 
-            builder.Property(e => e.PagamentoId)
-                .HasColumnName("pagamentoId");
-
-            builder.HasOne(p => p.Pagamento)
-                .WithOne(pag => pag.Pedido)
-                .HasForeignKey<Pedido>(p => p.PagamentoId)
-                .OnDelete(DeleteBehavior.Cascade);
+            builder.Property(e => e.ContaClienteId)
+                .HasColumnName("conta_cliente_id")
+                .IsRequired();
 
             builder.HasMany(p => p.ItensPedido)
                .WithOne(i => i.Pedido)
-               .HasForeignKey(i => i.PedidoId);
+               .HasForeignKey(i => i.PedidoId)
+               .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(p => p.ContaCliente)
+                .WithMany(c => c.Pedidos)
+                .HasForeignKey(p => p.ContaClienteId);
+
+            builder.HasMany(p => p.Pagamentos)
+                .WithOne(pg => pg.Pedido)
+                .HasForeignKey(pg => pg.PedidoId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
