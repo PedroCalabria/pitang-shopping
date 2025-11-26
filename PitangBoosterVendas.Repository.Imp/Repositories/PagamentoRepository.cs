@@ -26,7 +26,7 @@ namespace PitangBoosterVendas.Repository.Imp.Repositories
             var query = from pagamento in Entity
 
                         join pedido in context.Pedido
-                        on pagamento.Id equals pedido.PagamentoId
+                        on pagamento.PedidoId equals pedido.Id
 
                         where pedido.Id == idPedido
                         select pagamento;

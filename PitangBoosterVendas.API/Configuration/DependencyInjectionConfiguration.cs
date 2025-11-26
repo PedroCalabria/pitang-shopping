@@ -1,10 +1,9 @@
 ﻿using PitangBoosterVendas.API.Middleware;
-using PitangBoosterVendas.Business.IBusiness;
 using PitangBoosterVendas.Business.Imp.Business;
 using PitangBoosterVendas.Repository;
 using PitangBoosterVendas.Repository.Imp.Repositories;
 using PitangBoosterVendas.Repository.Imp.TransactionManager;
-using PitangBoosterVendas.Repository.IRepository;
+using System.Reflection;
 
 namespace PitangBoosterVendas.Api.Configuration
 {
@@ -12,9 +11,10 @@ namespace PitangBoosterVendas.Api.Configuration
     {
         public static void AddDependencyInjectionConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
-            InjectRepositories(services);
-            InjectBusinesses(services);
             InjectMiddlewares(services);
+
+            RegisterGeneric(services, typeof(PagamentoBusiness).Assembly, "Business");
+            RegisterGeneric(services, typeof(PagamentoRepository).Assembly, "Repository");
 
             services.AddScoped<ITransactionManager, TransactionManager>();
         }
@@ -24,18 +24,20 @@ namespace PitangBoosterVendas.Api.Configuration
             services.AddTransient<ApiMiddleware>();
         }
 
-        private static void InjectRepositories(IServiceCollection services)
+        private static void RegisterGeneric(IServiceCollection services, Assembly assembly, string sufixo)
         {
-            services.AddScoped<IPedidoRepository, PedidoRepository>();            
-            services.AddScoped<IProdutoRepository, ProdutoRepository>();            
-            services.AddScoped<IPagamentoRepository, PagamentoRepository>();            
-        }
+            var implementacoes = assembly.GetTypes()
+                                .Where(t => t.IsClass && t.Name.EndsWith(sufixo)); 
 
-        private static void InjectBusinesses(IServiceCollection services)
-        {
-            services.AddScoped<IPedidoBusiness, PedidoBusiness>();
-            services.AddScoped<IProdutoBusiness, ProdutoBusiness>();
-            services.AddScoped<IPagamentoBusiness, PagamentoBusiness>();
+            foreach (var implementacao in implementacoes)
+            {
+                var interfaceType = Array.Find(implementacao.GetInterfaces(), i => i.Name.EndsWith(implementacao.Name));
+
+                if (interfaceType != null)
+                {
+                    services.AddScoped(interfaceType, implementacao);
+                }
+            }
         }
     }
 }

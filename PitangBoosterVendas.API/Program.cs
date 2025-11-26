@@ -1,8 +1,8 @@
-using log4net.Config;
 using log4net;
-using System.Reflection;
+using log4net.Config;
 using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
+using PitangBoosterVendas.Utils.Resources;
+using System.Reflection;
 
 namespace PitangBoosterVendas.Api
 {
@@ -17,16 +17,20 @@ namespace PitangBoosterVendas.Api
                 var logRepository = LogManager.GetRepository(Assembly.GetCallingAssembly());
                 XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
 
-                //_log.Info(InfraMessages.InitializingApplication);
+                var currentDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                _log.Info(string.Format(InfraMessages.InitializingApplication, currentDate));
                 var webHost = WebHost.CreateDefaultBuilder(args).UseStartup<Startup>();
 
                 webHost.Build().Run();
             }
             catch (Exception ex)
             {
-                //_log.Fatal(InfraMessages.FatalError, ex);
+                var currentDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                _log.Info(string.Format(InfraMessages.FatalError, currentDate));
                 throw;
             }
         }
+
+        
     }
 }
